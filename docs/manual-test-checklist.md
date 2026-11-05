@@ -54,3 +54,38 @@ shown; directly connected adapters are often classified *Public*).
     minute the notice about allowing the program in Windows Firewall appears.
 19. **Router option.** Confirm one real IoT device still works when the server advertises the PC as
     router while Internet sharing is off (research D12).
+
+## PC address settings (feature 002)
+
+**Use a spare USB Ethernet adapter or a virtual machine. Never run these steps on the adapter that carries
+your normal network.** Write down its settings first (`ipconfig /all`) and compare after each step.
+
+20. **Automatic → fixed.** Spare adapter on "obtain automatically", cable to a test device. Select it: the
+    "Set a fixed address" box is on and locked, a suggestion such as `192.168.137.1 / 255.255.255.0` is filled
+    in. Press **Start**: the confirmation window lists *Now* and *After*; nothing has changed yet
+    (`ipconfig /all`). Confirm: the adapter has the new address, the server runs, the device gets an address.
+    Press **Stop**: `ipconfig /all` shows automatic mode again.
+21. **Static → static with gateway and DNS.** Give the adapter a fixed address, gateway, two DNS servers and,
+    if you like, a second address. Run a session with other settings, then stop: the original address(es),
+    gateway and both DNS servers are back.
+22. **Cancel.** Press **Cancel** in the confirmation window: nothing changed, the server did not start.
+23. **Invalid input.** Try a malformed address, `255.0.255.0`, a /31 mask, a gateway in another subnet and an
+    address in another connected adapter's subnet: inline messages, **Start** disabled.
+24. **Crash.** Start a session, then end `DhcpServer.exe` in Task Manager. The adapter keeps the session
+    address. Start the program again: it restores the old settings first and says so.
+25. **Power loss.** As 24, but hard-reset the virtual machine.
+26. **Changed by someone else.** Start a session, change the adapter's address in the Windows dialog, press
+    **Stop**: the program leaves your change and says so.
+27. **Adapter missing.** Start a session with the USB adapter, unplug it, press **Stop**: the program says it
+    could not restore. Plug it in and restart the program: the settings come back (or use **Retry restoring**).
+28. **Failure.** Disable the adapter while the confirmation window is open and confirm: the message names the
+    failing step, the adapter is back to its old settings and the server is not running.
+29. **Read-only folder.** Run from a read-only folder and choose a fixed address: it is refused with the
+    message that the old settings cannot be saved; nothing changes.
+30. **Two instances.** While a session with a fixed address runs, start a second instance and try the same on
+    the same adapter: it refuses (another instance is changing the settings).
+31. **netsh forms (Windows 7 SP1 and 11).** Confirm that setting the address by interface index works, that
+    "no gateway" and "no DNS" are applied (`ipconfig /all`), that all old static addresses are replaced, and note
+    how long the new address takes to become usable.
+32. **Languages.** The address group, the confirmation window and the recovery banner in all six languages
+    without clipping.

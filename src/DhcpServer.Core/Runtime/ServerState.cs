@@ -5,6 +5,7 @@ namespace DhcpServer.Core.Runtime
         Stopped,
         Starting,
         Running,
+        Stopping,
         Failed
     }
 }

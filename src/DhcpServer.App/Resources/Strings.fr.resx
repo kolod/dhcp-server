@@ -162,4 +162,172 @@ Un serveur DHCP portable qui attribue des adresses IP aux appareils IoT connect�
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>Copier l&apos;adresse MAC</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>Définir une adresse fixe pour cette session</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>Masque</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>Passerelle</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>Serveurs DNS</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(facultatif)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>adresse nécessaire</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>Saisissez une valeur.</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>Ce n&apos;est pas une adresse IPv4 valide.</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>Utilisez une adresse d&apos;hôte normale (pas 0.x.x.x, 127.x.x.x, multidiffusion ou diffusion).</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>Les adresses automatiques 169.254.x.x ne peuvent pas être utilisées.</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>Ce n&apos;est pas un masque de sous-réseau valide.</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>Le masque doit être compris entre 255.0.0.0 (/8) et 255.255.255.252 (/30).</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>C&apos;est l&apos;adresse réseau ou de diffusion du sous-réseau ; choisissez une adresse d&apos;hôte.</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>La passerelle doit être une autre adresse d&apos;hôte du même sous-réseau.</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>Les deux serveurs DNS sont identiques.</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>Ce sous-réseau chevauche une autre connexion réseau active.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Confirmer les changements d&apos;adresse</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>Le programme va modifier les paramètres réseau de {0} pour cette session :</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>Paramètre</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>Actuellement</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>Après</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>Appliquer et démarrer</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>Les paramètres précédents sont rétablis lorsque vous arrêtez le serveur ou fermez le programme.</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>automatique (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>fixe</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>aucun</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>L&apos;adresse a été définie pour cette session.</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>Rétablissement des paramètres réseau précédents…</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>Les paramètres réseau de {0} n&apos;ont pas été rétablis après la session précédente. Ils devraient être : {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>Réessayer le rétablissement</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>Abandonner</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>Abandonner les paramètres enregistrés ? Ce programme ne rétablira plus les paramètres réseau précédents.</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>Les paramètres réseau enregistrés sont illisibles et ne peuvent donc pas être rétablis. Vous pouvez les abandonner.</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>Les paramètres réseau précédents ont été rétablis.</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>Les paramètres réseau ont été modifiés par quelqu&apos;un d&apos;autre pendant la session ; ils ont donc été laissés tels quels.</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>La carte n&apos;est pas disponible ; ses paramètres n&apos;ont donc pas pu être rétablis. Ils le seront au prochain démarrage du programme, lorsque la carte sera présente.</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>Échec de la modification des paramètres réseau à l&apos;étape : {0}. Les paramètres précédents ont été rétablis.</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>Échec du rétablissement des paramètres réseau à l&apos;étape : {0}. Ils devraient être : {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>Une autre instance du programme modifie les paramètres réseau, ou une session précédente doit encore être rétablie.</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>Le programme ne peut pas enregistrer à côté de lui les informations nécessaires pour rétablir les anciens paramètres ; rien n&apos;a donc été modifié. Lancez-le depuis un dossier accessible en écriture.</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>La nouvelle adresse n&apos;est pas devenue utilisable à temps. Les paramètres précédents ont été rétablis.</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>lecture des paramètres actuels</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>enregistrement des anciens paramètres</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>définition de l&apos;adresse</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>ajout d&apos;une adresse</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>définition des serveurs DNS</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>suppression des serveurs DNS</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>passage à l&apos;adresse automatique</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>passage au DNS automatique</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>vérification du résultat</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>attente que l&apos;adresse devienne utilisable</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>suppression des paramètres enregistrés</value>
+  </data>
 </root>

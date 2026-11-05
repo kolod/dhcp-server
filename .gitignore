@@ -19,6 +19,10 @@ Thumbs.db
 
 # Local runtime files (portable settings next to the executable)
 DhcpServer.ini
+DhcpServer.leases
+DhcpServer.leases.tmp
+DhcpServer.restore
+DhcpServer.restore.tmp
 
 # Session memory and local agent settings
 .remember/

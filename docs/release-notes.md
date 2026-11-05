@@ -11,3 +11,4 @@ release.
   (IP, MAC, host name, start, expiry, state) that is kept between sessions.
 - Safety: refuses to start if another DHCP server answers, the interface is down, link-local or
   overlaps another active network, and stops within two seconds when the interface goes away.
+- The program can give the chosen adapter a fixed IPv4 address (address, mask, optional gateway and DNS) for the session. It shows the current and new settings and waits for confirmation first, and puts the previous settings back on stop, on exit and — after a crash or power loss — at the next start.

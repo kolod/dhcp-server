@@ -162,4 +162,172 @@ Ein portabler DHCP-Server, der IoT-Geräten bei direkter Verbindung mit einem La
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>MAC-Adresse kopieren</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>Für diese Sitzung eine feste Adresse festlegen</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>Adresse</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>Maske</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>Gateway</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>DNS-Server</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(optional)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>braucht eine Adresse</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>Geben Sie einen Wert ein.</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>Das ist keine gültige IPv4-Adresse.</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>Verwenden Sie eine normale Host-Adresse (nicht 0.x.x.x, 127.x.x.x, Multicast oder Broadcast).</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>Automatische Adressen (169.254.x.x) können nicht verwendet werden.</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>Das ist keine gültige Subnetzmaske.</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>Die Maske muss zwischen 255.0.0.0 (/8) und 255.255.255.252 (/30) liegen.</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>Das ist die Netzwerk- oder Broadcast-Adresse des Subnetzes; wählen Sie eine Host-Adresse.</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>Das Gateway muss eine andere Host-Adresse im selben Subnetz sein.</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>Die beiden DNS-Server sind identisch.</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>Dieses Subnetz überschneidet sich mit einer anderen aktiven Netzwerkverbindung.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Adressänderungen bestätigen</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>Das Programm ändert für diese Sitzung die Netzwerkeinstellungen von {0}:</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>Einstellung</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>Jetzt</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>Danach</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>Anwenden und starten</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>Die bisherigen Einstellungen werden wiederhergestellt, wenn Sie den Server beenden oder das Programm schließen.</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>Modus</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>automatisch (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>fest</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>keine</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>Die Adresse wurde für diese Sitzung festgelegt.</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>Die bisherigen Netzwerkeinstellungen werden wiederhergestellt …</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>Die Netzwerkeinstellungen von {0} wurden nach der letzten Sitzung nicht wiederhergestellt. Sie sollten lauten: {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>Wiederherstellung wiederholen</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>Verwerfen</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>Gespeicherte Einstellungen verwerfen? Dieses Programm stellt die bisherigen Netzwerkeinstellungen dann nicht mehr wieder her.</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>Die gespeicherten Netzwerkeinstellungen können nicht gelesen und daher nicht wiederhergestellt werden. Sie können sie verwerfen.</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>Die bisherigen Netzwerkeinstellungen wurden wiederhergestellt.</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>Die Netzwerkeinstellungen wurden während der Sitzung von jemand anderem geändert und bleiben deshalb unverändert.</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>Der Adapter ist nicht verfügbar, daher konnten seine Einstellungen nicht wiederhergestellt werden. Das geschieht beim nächsten Start des Programms, wenn der Adapter vorhanden ist.</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>Das Ändern der Netzwerkeinstellungen ist im Schritt fehlgeschlagen: {0}. Die bisherigen Einstellungen wurden zurückgesetzt.</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>Das Wiederherstellen der Netzwerkeinstellungen ist im Schritt fehlgeschlagen: {0}. Sie sollten lauten: {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>Eine andere Instanz des Programms ändert die Netzwerkeinstellungen, oder eine frühere Sitzung muss noch wiederhergestellt werden.</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>Das Programm kann die zum Wiederherstellen nötigen Daten nicht neben sich speichern, daher wurde nichts geändert. Starten Sie es aus einem beschreibbaren Ordner.</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>Die neue Adresse wurde nicht rechtzeitig nutzbar. Die bisherigen Einstellungen wurden zurückgesetzt.</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>Lesen der aktuellen Einstellungen</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>Speichern der bisherigen Einstellungen</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>Festlegen der Adresse</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>Hinzufügen einer Adresse</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>Festlegen der DNS-Server</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>Löschen der DNS-Server</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>Umschalten auf automatische Adresse</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>Umschalten auf automatisches DNS</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>Prüfen des Ergebnisses</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>Warten, bis die Adresse nutzbar ist</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>Löschen der gespeicherten Einstellungen</value>
+  </data>
 </root>

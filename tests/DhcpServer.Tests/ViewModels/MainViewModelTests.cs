@@ -82,6 +82,7 @@ namespace DhcpServer.Tests.ViewModels
         }
     }
 
+    [Collection("UiLanguage")]
     public class MainViewModelStartStopTests
     {
         [Fact]
@@ -236,6 +237,7 @@ namespace DhcpServer.Tests.ViewModels
         }
     }
 
+    [Collection("UiLanguage")]
     public class LeaseListTests
     {
         private static void Obtain(ViewModelFixture f, int mac, string address, string host = null)
@@ -384,6 +386,7 @@ namespace DhcpServer.Tests.ViewModels
         }
     }
 
+    [Collection("UiLanguage")]
     public class InterfaceListTests
     {
         [Fact]
@@ -405,25 +408,36 @@ namespace DhcpServer.Tests.ViewModels
         }
 
         [Fact]
-        public void Unusable_AreFlagged_WithReason_AndCannotBeSelected()
+        public void NonServingAdapters_AreFlagged_WithReason_AndConfigurableOnesCanBeChosen()
         {
             using (var f = new ViewModelFixture())
             {
                 f.Session.Interfaces.Interfaces.Add(TestNet.Eth("eth1", "192.168.137.50"));
                 f.Session.Interfaces.Interfaces.Add(TestNet.Eth("eth2", ip: null, up: false));
+                f.Session.Interfaces.Interfaces.Add(new InterfaceInfo("tun", "VPN", InterfaceKind.Tunnel, true, IPAddress.Parse("10.8.0.2"), 24));
                 f.Vm.Dispose();
                 f.Create();
 
                 var overlapping = f.Vm.Interfaces.First(i => i.Id == "eth1");
-                Assert.False(overlapping.IsSelectable);
+                Assert.True(overlapping.IsSelectable);
+                Assert.True(overlapping.NeedsAddress);
                 Assert.Equal(LanguageService.Get("Reason_SubnetOverlap"), overlapping.UnavailableReason);
+                Assert.Contains(LanguageService.Get("Interface_NeedsAddress"), overlapping.DisplayName);
 
                 var down = f.Vm.Interfaces.First(i => i.Id == "eth2");
                 Assert.Equal(LanguageService.Get("Reason_Down"), down.UnavailableReason);
-
+                Assert.True(down.IsSelectable);
+                Assert.False(down.NeedsAddress);
                 f.Vm.SelectedInterface = down;
-                Assert.Null(f.Vm.SelectedInterface);
+                Assert.Same(down, f.Vm.SelectedInterface);
                 Assert.False(f.Vm.StartStopCommand.CanExecute(null));
+                Assert.Equal(LanguageService.Get("Reason_Down"), f.Vm.DetailText);
+
+                var tunnel = f.Vm.Interfaces.First(i => i.Id == "tun");
+                Assert.False(tunnel.IsSelectable);
+                Assert.Equal(LanguageService.Get("Reason_NotSupportedType"), tunnel.UnavailableReason);
+                f.Vm.SelectedInterface = tunnel;
+                Assert.Same(down, f.Vm.SelectedInterface);
             }
         }
 
@@ -473,12 +487,12 @@ namespace DhcpServer.Tests.ViewModels
         }
 
         [Fact]
-        public void LastInterface_Unusable_IsNotPreselected()
+        public void LastInterface_ThatCannotBeUsedAtAll_IsNotPreselected()
         {
             using (var f = new ViewModelFixture())
             {
                 f.Settings.LastInterface = "eth0";
-                f.Session.Interfaces.Replace(TestNet.Eth(up: false));
+                f.Session.Interfaces.Replace(new InterfaceInfo("eth0", "VPN", InterfaceKind.Tunnel, true, IPAddress.Parse("10.8.0.2"), 24));
                 f.Create();
                 Assert.Null(f.Vm.SelectedInterface);
             }

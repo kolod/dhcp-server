@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DhcpServer.Core.Abstractions;
+using DhcpServer.Core.Addressing;
 using DhcpServer.Core.Dhcp;
 using DhcpServer.Core.Leases;
 using DhcpServer.Core.Network;
@@ -10,8 +11,9 @@ using DhcpServer.Core.Network;
 namespace DhcpServer.Core.Runtime
 {
     /// <summary>
-    /// One server run on one chosen interface: start gate, socket, receive loop, interface
-    /// monitoring and lease persistence. Thread-safe; events may fire on background threads.
+    /// One server run on one chosen interface: optional fixed address for the PC, start gate, socket,
+    /// receive loop, interface monitoring, lease persistence and — when settings were changed — the
+    /// restore of the previous configuration. Thread-safe; events may fire on background threads.
     /// </summary>
     public sealed class ServerSession : IDisposable
     {
@@ -23,6 +25,8 @@ namespace DhcpServer.Core.Runtime
         private readonly IDhcpServerProbe _probe;
         private readonly IAddressProber _prober;
         private readonly ILeaseStore _store;
+        private readonly AddressConfigurator _configurator;
+        private readonly RecoveryService _recovery;
 
         private readonly object _sync = new object();
         private readonly object _engineLock = new object();
@@ -37,12 +41,15 @@ namespace DhcpServer.Core.Runtime
         private CancellationTokenSource _cts;
         private Timer _timer;
         private bool _disposed;
+        private bool _addressApplied;
         private int _packetsReceived;
 
         private DateTime _lastSave = DateTime.MinValue;
         private bool _savePending;
 
         /// <param name="pollInterval">How often the chosen interface is re-checked; <see cref="Timeout.InfiniteTimeSpan"/> disables the timer (tests call <see cref="Tick"/>).</param>
+        /// <param name="configurator">Needed only to start with a fixed address; null disables that path.</param>
+        /// <param name="recovery">When given and a restore is pending, starting is refused.</param>
         public ServerSession(
             IEndpointFactory endpoints,
             IClock clock,
@@ -50,7 +57,9 @@ namespace DhcpServer.Core.Runtime
             IDhcpServerProbe probe,
             IAddressProber prober,
             ILeaseStore store,
-            TimeSpan pollInterval)
+            TimeSpan pollInterval,
+            AddressConfigurator configurator = null,
+            RecoveryService recovery = null)
         {
             _endpoints = endpoints;
             _clock = clock;
@@ -58,6 +67,8 @@ namespace DhcpServer.Core.Runtime
             _probe = probe;
             _prober = prober;
             _store = store;
+            _configurator = configurator;
+            _recovery = recovery;
             PollInterval = pollInterval;
 
             Leases = new LeaseTable();
@@ -80,6 +91,9 @@ namespace DhcpServer.Core.Runtime
 
         /// <summary>Raised when saving leases failed; leases then live in memory only.</summary>
         public event EventHandler StoreFailed;
+
+        /// <summary>Raised after settings were restored (or could not be) at the end of a run or a rollback.</summary>
+        public event EventHandler<RestoreResult> RestoreCompleted;
 
         public LeaseTable Leases { get; }
 
@@ -107,13 +121,18 @@ namespace DhcpServer.Core.Runtime
             get { lock (_sync) { return _chosen; } }
         }
 
-        /// <summary>Starts in the background (the probe takes seconds). No-op unless Stopped or Failed.</summary>
-        public Task StartAsync(InterfaceInfo chosen)
+        /// <summary>
+        /// Starts in the background (applying settings and the probe take seconds). No-op unless Stopped or
+        /// Failed, and while a restore from an earlier crash is pending. With <paramref name="settings"/> the
+        /// PC's adapter gets that fixed address first (the caller has shown the preview and got consent).
+        /// </summary>
+        public Task StartAsync(InterfaceInfo chosen, AddressSettings settings = null)
         {
             CancellationToken token;
             lock (_sync)
             {
-                if (_disposed || _state == ServerState.Starting || _state == ServerState.Running)
+                if (_disposed || _state == ServerState.Starting || _state == ServerState.Running || _state == ServerState.Stopping
+                    || (_recovery != null && !_recovery.CanStartSession))
                 {
                     return Task.FromResult(0);
                 }
@@ -127,7 +146,7 @@ namespace DhcpServer.Core.Runtime
             }
 
             RaiseStateChanged();
-            return Task.Run(() => StartCore(chosen, token));
+            return Task.Run(() => StartCore(chosen, settings, token));
         }
 
         /// <summary>Aborts a start in progress (the probe is cancelled, nothing is bound).</summary>
@@ -150,7 +169,7 @@ namespace DhcpServer.Core.Runtime
             }
         }
 
-        /// <summary>Stops answering immediately: the socket is closed before the state changes.</summary>
+        /// <summary>Stops answering immediately: the socket is closed before anything else happens.</summary>
         public void Stop()
         {
             CancelStart();
@@ -195,19 +214,41 @@ namespace DhcpServer.Core.Runtime
             Leases.Changed -= OnLeasesChanged;
         }
 
-        private void StartCore(InterfaceInfo chosen, CancellationToken token)
+        private void StartCore(InterfaceInfo chosen, AddressSettings settings, CancellationToken token)
         {
+            var applied = false;
             try
             {
+                if (settings != null)
+                {
+                    var refusal = ApplySettings(chosen, settings, token, out applied);
+                    if (refusal != null)
+                    {
+                        Fail(refusal, token);
+                        return;
+                    }
+
+                    if (token.IsCancellationRequested)
+                    {
+                        RollbackSettings();
+                        return;
+                    }
+                }
+
                 var gate = StartGate.Check(chosen, _interfaces, _probe, token);
                 if (gate.Cancelled || token.IsCancellationRequested)
                 {
+                    if (applied)
+                    {
+                        RollbackSettings();
+                    }
+
                     return;
                 }
 
                 if (gate.Failure != null)
                 {
-                    Fail(gate.Failure, token);
+                    Fail(applied ? WithRollback(gate.Failure) : gate.Failure, token);
                     return;
                 }
 
@@ -222,32 +263,148 @@ namespace DhcpServer.Core.Runtime
                     if (token.IsCancellationRequested)
                     {
                         endpoint.Close();
-                        return;
+                        if (applied)
+                        {
+                            // fall through to the rollback below, outside the lock
+                        }
+                        else
+                        {
+                            return;
+                        }
                     }
-
-                    _chosen = info;
-                    _engine = engine;
-                    _endpoint = endpoint;
-                    _thread = new Thread(() => ReceiveLoop(endpoint, engine)) { IsBackground = true, Name = "DhcpReceive" };
-                    _thread.Start();
-                    if (PollInterval != Timeout.InfiniteTimeSpan)
+                    else
                     {
-                        _timer = new Timer(_ => Tick(), null, PollInterval, PollInterval);
-                    }
+                        _chosen = info;
+                        _engine = engine;
+                        _endpoint = endpoint;
+                        var bound = endpoint;
+                        _thread = new Thread(() => ReceiveLoop(bound, engine)) { IsBackground = true, Name = "DhcpReceive" };
+                        _thread.Start();
+                        if (PollInterval != Timeout.InfiniteTimeSpan)
+                        {
+                            _timer = new Timer(_ => Tick(), null, PollInterval, PollInterval);
+                        }
 
-                    _state = ServerState.Running;
+                        _state = ServerState.Running;
+                        endpoint = null;
+                    }
+                }
+
+                if (endpoint != null)
+                {
+                    RollbackSettings();
+                    return;
                 }
 
                 RaiseStateChanged();
             }
             catch (EndpointBindException e)
             {
-                Fail(e.Reason ?? new FailureReason(FailureKind.Unexpected, e.Message), token);
+                var reason = e.Reason ?? new FailureReason(FailureKind.Unexpected, e.Message);
+                Fail(applied ? WithRollback(reason) : reason, token);
             }
             catch (Exception e)
             {
-                Fail(new FailureReason(FailureKind.Unexpected, e.Message), token);
+                var reason = new FailureReason(FailureKind.Unexpected, e.Message);
+                Fail(applied ? WithRollback(reason) : reason, token);
             }
+        }
+
+        /// <summary>Returns null on success (settings applied), otherwise the reason to refuse the start.</summary>
+        private FailureReason ApplySettings(InterfaceInfo chosen, AddressSettings settings, CancellationToken token, out bool applied)
+        {
+            applied = false;
+            if (_configurator == null)
+            {
+                return new FailureReason(FailureKind.Unexpected, "address configuration is not available");
+            }
+
+            var all = _interfaces.GetInterfaces();
+            var fresh = all.FirstOrDefault(i => i.Id == chosen.Id);
+            if (fresh == null || !fresh.IsUp)
+            {
+                return new FailureReason(FailureKind.Down);
+            }
+
+            if (!InterfaceEligibility.IsConfigurable(fresh))
+            {
+                return new FailureReason(FailureKind.NotSupportedType);
+            }
+
+            if (AddressSettingsValidator.Overlaps(settings.Address, settings.PrefixLength, fresh.Id, all))
+            {
+                return new FailureReason(FailureKind.SubnetOverlap);
+            }
+
+            var result = _configurator.Apply(fresh, settings);
+            if (result.Succeeded)
+            {
+                lock (_sync)
+                {
+                    _addressApplied = true;
+                }
+
+                applied = true;
+                return null;
+            }
+
+            if (result.Rollback != null && !result.Rollback.IsFinal)
+            {
+                return RestoreFailure(result.Rollback);
+            }
+
+            switch (result.Outcome)
+            {
+                case ApplyOutcome.SettingsLocked:
+                case ApplyOutcome.PendingRecord:
+                case ApplyOutcome.RecordCorrupt:
+                    return new FailureReason(FailureKind.SettingsLocked);
+                case ApplyOutcome.RecordNotWritable:
+                    return new FailureReason(FailureKind.RecordNotWritable);
+                case ApplyOutcome.AddressNotReady:
+                    return new FailureReason(FailureKind.AddressNotReady);
+                default:
+                    return new FailureReason(FailureKind.AddressApplyFailed, (result.FailedStep ?? ApplyStep.Capture).ToString());
+            }
+        }
+
+        /// <summary>After a later start step failed: put the old settings back and keep the original reason if that worked.</summary>
+        private FailureReason WithRollback(FailureReason original)
+        {
+            var restore = RollbackSettings();
+            return restore != null && !restore.IsFinal ? RestoreFailure(restore) : original;
+        }
+
+        private RestoreResult RollbackSettings()
+        {
+            if (_configurator == null)
+            {
+                return null;
+            }
+
+            bool needed;
+            lock (_sync)
+            {
+                needed = _addressApplied;
+                _addressApplied = false;
+            }
+
+            if (!needed)
+            {
+                return null;
+            }
+
+            var result = _configurator.Restore();
+            RestoreCompleted?.Invoke(this, result);
+            return result;
+        }
+
+        private static FailureReason RestoreFailure(RestoreResult restore)
+        {
+            return new FailureReason(
+                FailureKind.AddressRestoreFailed,
+                (restore.FailedStep ?? ApplyStep.Capture).ToString(),
+                restore.Record?.Previous);
         }
 
         private void Fail(FailureReason reason, CancellationToken token)
@@ -335,9 +492,26 @@ namespace DhcpServer.Core.Runtime
 
             SaveNow(force: true);
 
+            bool restoreNeeded;
             lock (_sync)
             {
-                _failure = reason;
+                restoreNeeded = _addressApplied && _configurator != null;
+                if (restoreNeeded)
+                {
+                    _state = ServerState.Stopping;
+                }
+            }
+
+            RestoreResult restore = null;
+            if (restoreNeeded)
+            {
+                RaiseStateChanged();
+                restore = RollbackSettings();
+            }
+
+            lock (_sync)
+            {
+                _failure = restore != null && restore.Outcome == RestoreOutcome.Failed ? RestoreFailure(restore) : reason;
                 _state = ServerState.Stopped;
             }
 
