@@ -4,7 +4,12 @@
 
 A portable DHCP server for giving IoT devices IP addresses over a direct connection to a laptop.
 
-- Portable: a single executable, no installation; settings are kept in `DhcpServer.ini` next to it.
+- Gives IPv4 addresses to IoT devices connected directly (cable or isolated switch) to the PC, on one
+  interface you choose, and shows a live list of leases (IP, MAC, host name, expiry).
+- Safe by design: refuses to start if another DHCP server answers on the interface, never answers on
+  any other interface, and stops at once when the interface goes down or the program exits.
+- Portable: a single executable, no installation; settings are kept in `DhcpServer.ini` and leases in
+  `DhcpServer.leases` next to it.
 - UI languages: English, Ukrainian, German, French, Spanish, Japanese.
 
 ## Requirements

@@ -12,6 +12,7 @@ namespace DhcpServer.App.Settings
     internal sealed class PortableSettings
     {
         private const string LanguageKey = "Language";
+        private const string LastInterfaceKey = "LastInterface";
         private readonly string _path;
         private readonly IniDocument _doc;
 
@@ -27,9 +28,20 @@ namespace DhcpServer.App.Settings
             set { _doc.Set(LanguageKey, value); }
         }
 
+        /// <summary>Id of the interface chosen last time (preselected, never auto-started).</summary>
+        public string LastInterface
+        {
+            get { return _doc.Get(LastInterfaceKey); }
+            set { _doc.Set(LastInterfaceKey, value); }
+        }
+
         public static PortableSettings Load()
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DhcpServer.ini");
+            return Load(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DhcpServer.ini"));
+        }
+
+        public static PortableSettings Load(string path)
+        {
             string text = null;
             try
             {

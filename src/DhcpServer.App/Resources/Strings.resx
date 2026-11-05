@@ -36,4 +36,130 @@ A portable DHCP server for giving IoT devices IP addresses over a direct connect
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>no IPv4 address</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>connected</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>disconnected</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>Choose the network interface the device is connected to.</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Server stopped</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>Starting… checking the network for another DHCP server</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>Server running on {0}</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Server not started</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>No free addresses left: a device asked for an address and got none.</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>The lease file cannot be saved next to the program; leases will be lost when you close it.</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>No requests received yet. If a device is connected, allow DhcpServer in Windows Firewall (including for public networks).</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>No network interface is chosen.</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>The interface is disconnected or turned off.</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>Only Ethernet and Wi-Fi interfaces can be used.</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>The interface has no IPv4 address. Give it a fixed address first.</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>The interface only has an automatic (169.254.x.x) address. Give it a fixed address first.</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>The interface&apos;s subnet size is not supported (use a mask between /8 and /30).</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>The interface&apos;s subnet overlaps with another active network connection.</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>Another DHCP server answered on this network ({0}). Starting a second one could break the network.</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>Could not check whether another DHCP server is present, so the server was not started.</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>The DHCP port (UDP 67) is already used by another program.</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>Access to the DHCP port was denied. Run the program as administrator.</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>The interface was disconnected or changed, so the server stopped.</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>Unexpected error: {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>Leases</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>No devices yet. Connect a device and start the server.</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>IP address</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>MAC address</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>Host name</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Lease start</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>Expires</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>Expired</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>Released</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>Inactive</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>Copy IP address</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>Copy MAC address</value>
+  </data>
 </root>

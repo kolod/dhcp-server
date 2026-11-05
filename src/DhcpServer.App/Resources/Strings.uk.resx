@@ -36,4 +36,130 @@
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>Інтерфейс</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>немає IPv4-адреси</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>підключено</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>відключено</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>Запустити</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Зупинити</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Скасувати</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>Виберіть мережевий інтерфейс, до якого підключено пристрій.</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Сервер зупинено</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>Запуск… перевірка мережі на наявність іншого DHCP-сервера</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>Сервер працює на {0}</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Сервер не запущено</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>Вільних адрес не залишилось: пристрій попросив адресу, але не отримав її.</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>Файл оренд неможливо зберегти поруч із програмою; оренди буде втрачено після закриття.</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>Запитів ще не надходило. Якщо пристрій підключено, дозвольте DhcpServer у брандмауері Windows (зокрема для загальнодоступних мереж).</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>Мережевий інтерфейс не вибрано.</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>Інтерфейс відключено або вимкнено.</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>Можна використовувати лише інтерфейси Ethernet і Wi-Fi.</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>Інтерфейс не має IPv4-адреси. Спочатку задайте йому фіксовану адресу.</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>Інтерфейс має лише автоматичну адресу (169.254.x.x). Спочатку задайте йому фіксовану адресу.</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>Розмір підмережі інтерфейсу не підтримується (використовуйте маску від /8 до /30).</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>Підмережа інтерфейсу перетинається з іншим активним мережевим підключенням.</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>У цій мережі відповів інший DHCP-сервер ({0}). Запуск другого може порушити роботу мережі.</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>Не вдалося перевірити наявність іншого DHCP-сервера, тому сервер не запущено.</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>Порт DHCP (UDP 67) уже використовується іншою програмою.</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>Доступ до порту DHCP заборонено. Запустіть програму від імені адміністратора.</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>Інтерфейс відключено або змінено, тому сервер зупинено.</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>Неочікувана помилка: {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>Оренди</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>Пристроїв ще немає. Підключіть пристрій і запустіть сервер.</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>IP-адреса</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>MAC-адреса</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>Ім&apos;я хоста</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Початок оренди</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>Спливає</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>Стан</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>Активна</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>Спливла</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>Звільнена</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>Неактивна</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>Копіювати IP-адресу</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>Копіювати MAC-адресу</value>
+  </data>
 </root>
