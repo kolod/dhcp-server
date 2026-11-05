@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DhcpServer.App/DhcpServer.App.csproj" />
+    <Project Path="src/DhcpServer.Core/DhcpServer.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DhcpServer.Tests/DhcpServer.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,38 @@
+<Window x:Class="DhcpServer.App.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:l="clr-namespace:DhcpServer.App.Localization"
+        Style="{StaticResource AppWindow}"
+        Title="{l:Loc App_Title}"
+        Width="800" Height="520" MinWidth="560" MinHeight="360"
+        WindowStartupLocation="CenterScreen">
+  <DockPanel>
+    <Menu DockPanel.Dock="Top">
+      <MenuItem Header="{l:Loc Menu_Language}" ItemsSource="{Binding Languages}">
+        <MenuItem.ItemContainerStyle>
+          <Style TargetType="MenuItem">
+            <Setter Property="Header" Value="{Binding NativeName}" />
+            <Setter Property="IsChecked" Value="{Binding IsSelected, Mode=OneWay}" />
+            <Setter Property="Command" Value="{Binding DataContext.SelectLanguageCommand, RelativeSource={RelativeSource AncestorType=Window}}" />
+            <Setter Property="CommandParameter" Value="{Binding Code}" />
+          </Style>
+        </MenuItem.ItemContainerStyle>
+      </MenuItem>
+      <MenuItem Header="{l:Loc Menu_Help}">
+        <MenuItem Header="{l:Loc Menu_About}" Click="About_Click" />
+      </MenuItem>
+    </Menu>
+
+    <StatusBar DockPanel.Dock="Bottom">
+      <StatusBarItem>
+        <TextBlock Text="{l:Loc Status_Ready}" />
+      </StatusBarItem>
+    </StatusBar>
+
+    <!-- Feature content goes here (one view per feature, each with its own view model). -->
+    <Grid Margin="16">
+      <TextBlock Text="{l:Loc Main_Placeholder}" TextWrapping="Wrap"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Grid>
+  </DockPanel>
+</Window>

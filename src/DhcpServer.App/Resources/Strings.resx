@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>  <data name="App_Title" xml:space="preserve">
+    <value>DHCP Server</value>
+  </data>
+  <data name="Menu_Language" xml:space="preserve">
+    <value>_Language</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="Menu_About" xml:space="preserve">
+    <value>_About</value>
+  </data>
+  <data name="Status_Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Main_Placeholder" xml:space="preserve">
+    <value>Nothing here yet.</value>
+  </data>
+  <data name="About_Text" xml:space="preserve">
+    <value>DHCP Server {0}
+
+A portable DHCP server for giving IoT devices IP addresses over a direct connection to a laptop.
+
+© 2026 Oleksandr Kolodkin</value>
+  </data>
+</root>

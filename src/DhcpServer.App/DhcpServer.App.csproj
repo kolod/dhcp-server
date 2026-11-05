@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <LangVersion>7.3</LangVersion>
+    <AssemblyName>DhcpServer</AssemblyName>
+    <RootNamespace>DhcpServer.App</RootNamespace>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <Version>0.1.0</Version>
+    <Product>DhcpServer</Product>
+    <Description>A portable DHCP server for giving IoT devices IP addresses over a direct connection to a laptop.</Description>
+    <Copyright>Copyright © 2026 Oleksandr Kolodkin</Copyright>
+    <!-- Single executable: never produce culture satellite folders. -->
+    <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <!-- Core sources are compiled into the executable (no project reference, no DLL). -->
+  <ItemGroup>
+    <Compile Include="..\DhcpServer.Core\**\*.cs"
+             Exclude="..\DhcpServer.Core\obj\**;..\DhcpServer.Core\bin\**"
+             Link="Core\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <!--
+    All languages are embedded in the main assembly. WithCulture="false" stops MSBuild from
+    turning culture-suffixed .resx files into satellite assemblies. Adding a language: add
+    Resources\Strings.<code>.resx, a line here, the code in LanguageService.Supported and in
+    tests\check-artifact.ps1.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx" WithCulture="false" LogicalName="DhcpServer.Strings.en.resources" />
+    <EmbeddedResource Update="Resources\Strings.uk.resx" WithCulture="false" LogicalName="DhcpServer.Strings.uk.resources" />
+    <EmbeddedResource Update="Resources\Strings.de.resx" WithCulture="false" LogicalName="DhcpServer.Strings.de.resources" />
+    <EmbeddedResource Update="Resources\Strings.fr.resx" WithCulture="false" LogicalName="DhcpServer.Strings.fr.resources" />
+    <EmbeddedResource Update="Resources\Strings.es.resx" WithCulture="false" LogicalName="DhcpServer.Strings.es.resources" />
+    <EmbeddedResource Update="Resources\Strings.ja.resx" WithCulture="false" LogicalName="DhcpServer.Strings.ja.resources" />
+  </ItemGroup>
+
+</Project>

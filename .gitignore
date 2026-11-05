@@ -1,0 +1,25 @@
+# Build output
+bin/
+obj/
+artifacts/
+TestResults/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+packages/
+
+# OS / editors
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+
+# Local runtime files (portable settings next to the executable)
+DhcpServer.ini
+
+# Session memory and local agent settings
+.remember/
+.claude/settings.local.json
