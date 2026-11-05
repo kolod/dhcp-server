@@ -36,4 +36,130 @@ Un servidor DHCP portátil que asigna direcciones IP a dispositivos IoT conectad
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>Interfaz</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>sin dirección IPv4</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>conectado</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>desconectado</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>Elija la interfaz de red a la que está conectado el dispositivo.</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Servidor detenido</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>Iniciando… comprobando si hay otro servidor DHCP en la red</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>Servidor en ejecución en {0}</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Servidor no iniciado</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>No quedan direcciones libres: un dispositivo pidió una dirección y no recibió ninguna.</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>No se puede guardar el archivo de concesiones junto al programa; se perderán al cerrarlo.</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>Aún no se han recibido solicitudes. Si hay un dispositivo conectado, permita DhcpServer en el Firewall de Windows (también para redes públicas).</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>No se ha elegido ninguna interfaz de red.</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>La interfaz está desconectada o apagada.</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>Solo se pueden usar interfaces Ethernet y Wi-Fi.</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>La interfaz no tiene dirección IPv4. Asígnele primero una dirección fija.</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>La interfaz solo tiene una dirección automática (169.254.x.x). Asígnele primero una dirección fija.</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>No se admite el tamaño de subred de la interfaz (use una máscara entre /8 y /30).</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>La subred de la interfaz se solapa con otra conexión de red activa.</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>Otro servidor DHCP respondió en esta red ({0}). Iniciar un segundo podría dañar la red.</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>No se pudo comprobar si hay otro servidor DHCP, por lo que no se inició el servidor.</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>El puerto DHCP (UDP 67) ya lo usa otro programa.</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>Se denegó el acceso al puerto DHCP. Ejecute el programa como administrador.</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>La interfaz se desconectó o cambió, por lo que el servidor se detuvo.</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>Error inesperado: {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>Concesiones</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>Aún no hay dispositivos. Conecte un dispositivo e inicie el servidor.</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>Dirección IP</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>Dirección MAC</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>Nombre de host</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>Caduca</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>Activa</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>Caducada</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>Liberada</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>Inactiva</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>Copiar dirección IP</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>Copiar dirección MAC</value>
+  </data>
 </root>

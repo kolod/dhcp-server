@@ -36,4 +36,130 @@ Un serveur DHCP portable qui attribue des adresses IP aux appareils IoT connect�
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>Interface</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>pas d&apos;adresse IPv4</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>connecté</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>déconnecté</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Arrêter</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Annuler</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>Choisissez l&apos;interface réseau à laquelle l&apos;appareil est connecté.</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Serveur arrêté</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>Démarrage… recherche d&apos;un autre serveur DHCP sur le réseau</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>Serveur actif sur {0}</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Serveur non démarré</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>Plus d&apos;adresse libre : un appareil a demandé une adresse sans en recevoir.</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>Le fichier des baux ne peut pas être enregistré à côté du programme ; les baux seront perdus à la fermeture.</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>Aucune requête reçue pour l&apos;instant. Si un appareil est connecté, autorisez DhcpServer dans le Pare-feu Windows (y compris pour les réseaux publics).</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>Aucune interface réseau n&apos;est choisie.</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>L&apos;interface est déconnectée ou désactivée.</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>Seules les interfaces Ethernet et Wi-Fi peuvent être utilisées.</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>L&apos;interface n&apos;a pas d&apos;adresse IPv4. Donnez-lui d&apos;abord une adresse fixe.</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>L&apos;interface n&apos;a qu&apos;une adresse automatique (169.254.x.x). Donnez-lui d&apos;abord une adresse fixe.</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>La taille du sous-réseau de l&apos;interface n&apos;est pas prise en charge (utilisez un masque entre /8 et /30).</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>Le sous-réseau de l&apos;interface chevauche une autre connexion réseau active.</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>Un autre serveur DHCP a répondu sur ce réseau ({0}). En démarrer un second pourrait perturber le réseau.</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>Impossible de vérifier la présence d&apos;un autre serveur DHCP ; le serveur n&apos;a pas été démarré.</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>Le port DHCP (UDP 67) est déjà utilisé par un autre programme.</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>L&apos;accès au port DHCP a été refusé. Exécutez le programme en tant qu&apos;administrateur.</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>L&apos;interface a été déconnectée ou modifiée ; le serveur s&apos;est arrêté.</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>Erreur inattendue : {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>Baux</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>Aucun appareil pour l&apos;instant. Connectez un appareil et démarrez le serveur.</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>Adresse IP</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>Adresse MAC</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>Nom d&apos;hôte</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Début du bail</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>Expire</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>État</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>Actif</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>Expiré</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>Libéré</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>Inactif</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>Copier l&apos;adresse IP</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>Copier l&apos;adresse MAC</value>
+  </data>
 </root>

@@ -36,4 +36,130 @@
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>インターフェース</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>IPv4 アドレスなし</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>接続済み</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>切断</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>デバイスが接続されているネットワークインターフェースを選択してください。</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>サーバーは停止中</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>開始中… ネットワーク上の他の DHCP サーバーを確認しています</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>{0} でサーバーを実行中</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>サーバーを開始できませんでした</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>空きアドレスがありません。デバイスがアドレスを要求しましたが割り当てられませんでした。</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>リースファイルをプログラムの隣に保存できません。閉じるとリースは失われます。</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>まだ要求を受信していません。デバイスが接続されている場合は、Windows ファイアウォールで DhcpServer を許可してください(パブリック ネットワークを含む)。</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>ネットワークインターフェースが選択されていません。</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>インターフェースが切断されているか無効です。</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>使用できるのは Ethernet と Wi-Fi のインターフェースのみです。</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>インターフェースに IPv4 アドレスがありません。先に固定アドレスを設定してください。</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>インターフェースには自動アドレス (169.254.x.x) しかありません。先に固定アドレスを設定してください。</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>インターフェースのサブネットサイズはサポートされていません(/8〜/30 のマスクを使用してください)。</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>インターフェースのサブネットが、他のアクティブなネットワーク接続と重複しています。</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>このネットワークでは別の DHCP サーバー ({0}) が応答しました。2 台目を起動するとネットワークに障害が起きる可能性があります。</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>他の DHCP サーバーの有無を確認できなかったため、サーバーを開始しませんでした。</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>DHCP ポート (UDP 67) は既に別のプログラムで使用されています。</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>DHCP ポートへのアクセスが拒否されました。管理者として実行してください。</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>インターフェースが切断または変更されたため、サーバーを停止しました。</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>予期しないエラー: {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>リース</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>デバイスはまだありません。デバイスを接続してサーバーを開始してください。</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>IP アドレス</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>MAC アドレス</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>ホスト名</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>開始</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>期限</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>状態</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>期限切れ</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>解放済み</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>非アクティブ</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>IP アドレスをコピー</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>MAC アドレスをコピー</value>
+  </data>
 </root>

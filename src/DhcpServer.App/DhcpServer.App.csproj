@@ -20,6 +20,10 @@
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="DhcpServer.Tests" />
+  </ItemGroup>
+
   <!-- Core sources are compiled into the executable (no project reference, no DLL). -->
   <ItemGroup>
     <Compile Include="..\DhcpServer.Core\**\*.cs"

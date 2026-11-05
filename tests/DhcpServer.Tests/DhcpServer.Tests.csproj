@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DhcpServer.Core\DhcpServer.Core.csproj" />
+    <!-- The App assembly already contains the Core sources (linked); referencing Core as well would duplicate every type. -->
+    <ProjectReference Include="..\..\src\DhcpServer.App\DhcpServer.App.csproj" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
   </ItemGroup>
 
 </Project>

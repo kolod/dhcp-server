@@ -36,4 +36,130 @@ Ein portabler DHCP-Server, der IoT-Geräten bei direkter Verbindung mit einem La
 
 © 2026 Oleksandr Kolodkin</value>
   </data>
+  <data name="Interface_Label" xml:space="preserve">
+    <value>Schnittstelle</value>
+  </data>
+  <data name="Interface_NoAddress" xml:space="preserve">
+    <value>keine IPv4-Adresse</value>
+  </data>
+  <data name="Interface_Status_Up" xml:space="preserve">
+    <value>verbunden</value>
+  </data>
+  <data name="Interface_Status_Down" xml:space="preserve">
+    <value>getrennt</value>
+  </data>
+  <data name="Button_Start" xml:space="preserve">
+    <value>Starten</value>
+  </data>
+  <data name="Button_Stop" xml:space="preserve">
+    <value>Beenden</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="Hint_ChooseInterface" xml:space="preserve">
+    <value>Wählen Sie die Netzwerkschnittstelle, an die das Gerät angeschlossen ist.</value>
+  </data>
+  <data name="Status_Stopped" xml:space="preserve">
+    <value>Server gestoppt</value>
+  </data>
+  <data name="Status_Starting" xml:space="preserve">
+    <value>Wird gestartet … Netzwerk wird auf einen anderen DHCP-Server geprüft</value>
+  </data>
+  <data name="Status_Running" xml:space="preserve">
+    <value>Server läuft auf {0}</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Server nicht gestartet</value>
+  </data>
+  <data name="Notice_PoolExhausted" xml:space="preserve">
+    <value>Keine freien Adressen mehr: Ein Gerät hat eine Adresse angefordert und keine erhalten.</value>
+  </data>
+  <data name="Notice_LeaseFileNotWritable" xml:space="preserve">
+    <value>Die Lease-Datei kann nicht neben dem Programm gespeichert werden; die Leases gehen beim Schließen verloren.</value>
+  </data>
+  <data name="Notice_FirewallHint" xml:space="preserve">
+    <value>Noch keine Anfragen empfangen. Wenn ein Gerät angeschlossen ist, erlauben Sie DhcpServer in der Windows-Firewall (auch für öffentliche Netzwerke).</value>
+  </data>
+  <data name="Reason_NoInterfaceChosen" xml:space="preserve">
+    <value>Es ist keine Netzwerkschnittstelle ausgewählt.</value>
+  </data>
+  <data name="Reason_Down" xml:space="preserve">
+    <value>Die Schnittstelle ist getrennt oder ausgeschaltet.</value>
+  </data>
+  <data name="Reason_NotSupportedType" xml:space="preserve">
+    <value>Nur Ethernet- und WLAN-Schnittstellen können verwendet werden.</value>
+  </data>
+  <data name="Reason_NoIpv4Address" xml:space="preserve">
+    <value>Die Schnittstelle hat keine IPv4-Adresse. Weisen Sie ihr zuerst eine feste Adresse zu.</value>
+  </data>
+  <data name="Reason_LinkLocalAddress" xml:space="preserve">
+    <value>Die Schnittstelle hat nur eine automatische Adresse (169.254.x.x). Weisen Sie ihr zuerst eine feste Adresse zu.</value>
+  </data>
+  <data name="Reason_SubnetTooSmall" xml:space="preserve">
+    <value>Die Größe des Subnetzes der Schnittstelle wird nicht unterstützt (Maske zwischen /8 und /30 verwenden).</value>
+  </data>
+  <data name="Reason_SubnetOverlap" xml:space="preserve">
+    <value>Das Subnetz der Schnittstelle überschneidet sich mit einer anderen aktiven Netzwerkverbindung.</value>
+  </data>
+  <data name="Reason_OtherDhcpServer" xml:space="preserve">
+    <value>Im Netzwerk hat ein anderer DHCP-Server geantwortet ({0}). Ein zweiter Server könnte das Netzwerk stören.</value>
+  </data>
+  <data name="Reason_ProbeInconclusive" xml:space="preserve">
+    <value>Es konnte nicht geprüft werden, ob ein anderer DHCP-Server vorhanden ist; der Server wurde nicht gestartet.</value>
+  </data>
+  <data name="Reason_PortInUse" xml:space="preserve">
+    <value>Der DHCP-Port (UDP 67) wird bereits von einem anderen Programm verwendet.</value>
+  </data>
+  <data name="Reason_AccessDenied" xml:space="preserve">
+    <value>Der Zugriff auf den DHCP-Port wurde verweigert. Führen Sie das Programm als Administrator aus.</value>
+  </data>
+  <data name="Reason_InterfaceLost" xml:space="preserve">
+    <value>Die Schnittstelle wurde getrennt oder geändert; der Server wurde gestoppt.</value>
+  </data>
+  <data name="Reason_Unexpected" xml:space="preserve">
+    <value>Unerwarteter Fehler: {0}</value>
+  </data>
+  <data name="Leases_Header" xml:space="preserve">
+    <value>Leases</value>
+  </data>
+  <data name="Leases_Empty" xml:space="preserve">
+    <value>Noch keine Geräte. Schließen Sie ein Gerät an und starten Sie den Server.</value>
+  </data>
+  <data name="Column_IpAddress" xml:space="preserve">
+    <value>IP-Adresse</value>
+  </data>
+  <data name="Column_MacAddress" xml:space="preserve">
+    <value>MAC-Adresse</value>
+  </data>
+  <data name="Column_HostName" xml:space="preserve">
+    <value>Hostname</value>
+  </data>
+  <data name="Column_Start" xml:space="preserve">
+    <value>Beginn</value>
+  </data>
+  <data name="Column_Expires" xml:space="preserve">
+    <value>Läuft ab</value>
+  </data>
+  <data name="Column_State" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="LeaseState_Active" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
+  <data name="LeaseState_Expired" xml:space="preserve">
+    <value>Abgelaufen</value>
+  </data>
+  <data name="LeaseState_Released" xml:space="preserve">
+    <value>Freigegeben</value>
+  </data>
+  <data name="LeaseState_Inactive" xml:space="preserve">
+    <value>Inaktiv</value>
+  </data>
+  <data name="Menu_CopyIp" xml:space="preserve">
+    <value>IP-Adresse kopieren</value>
+  </data>
+  <data name="Menu_CopyMac" xml:space="preserve">
+    <value>MAC-Adresse kopieren</value>
+  </data>
 </root>
