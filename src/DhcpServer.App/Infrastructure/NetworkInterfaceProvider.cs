@@ -80,7 +80,8 @@ namespace DhcpServer.App.Infrastructure
                 address,
                 prefix,
                 gateway,
-                ni.GetPhysicalAddress().GetAddressBytes());
+                ni.GetPhysicalAddress().GetAddressBytes(),
+                chosen == null || chosen.DuplicateAddressDetectionState == DuplicateAddressDetectionState.Preferred);
         }
 
         private static int CountBits(uint mask)

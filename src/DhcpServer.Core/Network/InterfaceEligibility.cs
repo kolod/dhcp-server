@@ -26,6 +26,16 @@ namespace DhcpServer.Core.Network
         public const int MaxPrefixLength = 30;
         public const int MinPrefixLength = 8;
 
+        /// <summary>
+        /// True when the adapter may be given a fixed address by this program: Ethernet or Wi-Fi, in any
+        /// status and with any (or no) address. This only decides whether it can be *chosen*; serving is
+        /// still gated by <see cref="Evaluate"/>.
+        /// </summary>
+        public static bool IsConfigurable(InterfaceInfo candidate)
+        {
+            return candidate.Kind == InterfaceKind.Ethernet || candidate.Kind == InterfaceKind.Wireless;
+        }
+
         public static Eligibility Evaluate(InterfaceInfo candidate, IEnumerable<InterfaceInfo> all)
         {
             if (!candidate.IsUp)

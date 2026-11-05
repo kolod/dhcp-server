@@ -162,4 +162,172 @@
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>MAC アドレスをコピー</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>このセッションの間は固定アドレスを設定する</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>アドレス</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>マスク</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>ゲートウェイ</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>DNS サーバー</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(省略可)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>アドレスが必要</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>値を入力してください。</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>有効な IPv4 アドレスではありません。</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>通常のホストアドレスを使用してください(0.x.x.x、127.x.x.x、マルチキャスト、ブロードキャストは不可)。</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>自動アドレス (169.254.x.x) は使用できません。</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>有効なサブネットマスクではありません。</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>マスクは 255.0.0.0 (/8) から 255.255.255.252 (/30) の範囲で指定してください。</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>サブネットのネットワークアドレスまたはブロードキャストアドレスです。ホストアドレスを選んでください。</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>ゲートウェイは同じサブネット内の別のホストアドレスにしてください。</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>2 つの DNS サーバーが同じです。</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>このサブネットは、他のアクティブなネットワーク接続と重複しています。</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>アドレス変更の確認</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>このセッションの間、{0} のネットワーク設定を次のように変更します:</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>現在</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>変更後</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>適用して開始</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>サーバーを停止するかプログラムを閉じると、以前の設定に戻ります。</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>モード</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>自動 (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>このセッション用にアドレスを設定しました。</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>以前のネットワーク設定を復元しています…</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>前回のセッション後、{0} のネットワーク設定が復元されていません。本来の設定: {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>復元を再試行</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>破棄</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>保存した設定を破棄しますか? このプログラムは以前のネットワーク設定を復元しなくなります。</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>保存されたネットワーク設定を読み取れないため、復元できません。破棄することができます。</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>以前のネットワーク設定を復元しました。</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>セッション中に他の操作でネットワーク設定が変更されたため、そのままにしました。</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>アダプターが利用できないため、設定を復元できませんでした。アダプターが接続された状態で次回プログラムを起動したときに復元されます。</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>ネットワーク設定の変更が次の手順で失敗しました: {0}。以前の設定に戻しました。</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>ネットワーク設定の復元が次の手順で失敗しました: {0}。本来の設定: {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>別のインスタンスがネットワーク設定を変更中か、以前のセッションの復元がまだ必要です。</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>元の設定を復元するための情報をプログラムの隣に保存できないため、何も変更しませんでした。書き込み可能なフォルダーから実行してください。</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>新しいアドレスが時間内に使用可能になりませんでした。以前の設定に戻しました。</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>現在の設定の読み取り</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>以前の設定の保存</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>アドレスの設定</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>アドレスの追加</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>DNS サーバーの設定</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>DNS サーバーの消去</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>自動アドレスへの切り替え</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>自動 DNS への切り替え</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>結果の確認</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>アドレスが使用可能になるまで待機</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>保存した設定の削除</value>
+  </data>
 </root>

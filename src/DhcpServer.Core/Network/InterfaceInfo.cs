@@ -22,8 +22,10 @@ namespace DhcpServer.Core.Network
             IPAddress address,
             int prefixLength,
             IPAddress gateway = null,
-            byte[] macAddress = null)
+            byte[] macAddress = null,
+            bool isAddressPreferred = true)
         {
+            IsAddressPreferred = isAddressPreferred;
             Id = id;
             Name = name;
             Kind = kind;
@@ -33,6 +35,9 @@ namespace DhcpServer.Core.Network
             Gateway = gateway;
             MacAddress = macAddress;
         }
+
+        /// <summary>False while the address is still tentative (duplicate address detection running).</summary>
+        public bool IsAddressPreferred { get; }
 
         public string Id { get; }
 

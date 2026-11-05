@@ -162,4 +162,172 @@
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>Копіювати MAC-адресу</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>Задати фіксовану адресу на час сесії</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>Адреса</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>Маска</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>Шлюз</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>DNS-сервери</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(необов&apos;язково)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>потрібна адреса</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>Введіть значення.</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>Це не коректна IPv4-адреса.</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>Використайте звичайну адресу вузла (не 0.x.x.x, 127.x.x.x, багатоадресну чи широкомовну).</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>Автоматичні адреси 169.254.x.x використовувати не можна.</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>Це не коректна маска підмережі.</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>Маска має бути від 255.0.0.0 (/8) до 255.255.255.252 (/30).</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>Це адреса мережі або широкомовна адреса підмережі; виберіть адресу вузла.</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>Шлюз має бути іншою адресою вузла в тій самій підмережі.</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>Обидва DNS-сервери однакові.</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>Ця підмережа перетинається з іншим активним мережевим підключенням.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Підтвердіть зміну адреси</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>Програма змінить мережеві налаштування {0} на час цієї сесії:</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>Зараз</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>Буде</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>Застосувати й запустити</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>Попередні налаштування буде відновлено, коли ви зупините сервер або закриєте програму.</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>Режим</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>автоматично (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>фіксовано</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>немає</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>Адресу задано на час цієї сесії.</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>Відновлення попередніх мережевих налаштувань…</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>Мережеві налаштування {0} не було відновлено після попередньої сесії. Вони мають бути такими: {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>Спробувати відновити ще раз</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>Відкинути</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>Відкинути збережені налаштування? Ця програма більше не відновлюватиме попередні мережеві налаштування.</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>Збережені мережеві налаштування неможливо прочитати, тому їх не можна відновити. Їх можна відкинути.</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>Попередні мережеві налаштування відновлено.</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>Мережеві налаштування було змінено стороннім під час сесії, тому їх залишено як є.</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>Адаптер недоступний, тому його налаштування не вдалося відновити. Їх буде відновлено під час наступного запуску програми, коли адаптер буде підключено.</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>Не вдалося змінити мережеві налаштування на кроці: {0}. Попередні налаштування повернено.</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>Не вдалося відновити мережеві налаштування на кроці: {0}. Вони мають бути такими: {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>Інший екземпляр програми змінює мережеві налаштування, або ще потрібно відновити попередню сесію.</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>Програма не може зберегти поруч із собою дані для відновлення старих налаштувань, тому нічого не змінено. Запустіть її з теки, доступної для запису.</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>Нова адреса не стала придатною до використання вчасно. Попередні налаштування повернено.</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>читання поточних налаштувань</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>збереження старих налаштувань</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>задання адреси</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>додавання адреси</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>задання DNS-серверів</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>очищення DNS-серверів</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>перемикання на автоматичну адресу</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>перемикання на автоматичний DNS</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>перевірка результату</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>очікування, поки адреса стане придатною</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>видалення збережених налаштувань</value>
+  </data>
 </root>

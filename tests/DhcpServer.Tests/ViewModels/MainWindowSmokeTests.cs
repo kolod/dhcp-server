@@ -5,13 +5,17 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using DhcpServer.App.Localization;
+using DhcpServer.App.ViewModels;
 using DhcpServer.App.Views;
+using DhcpServer.Core.Addressing;
 using DhcpServer.Tests.Fakes;
 using Xunit;
 
 namespace DhcpServer.Tests.ViewModels
 {
     /// <summary>Loads the real XAML with a real view model: catches XAML errors and broken bindings.</summary>
+    [Collection("UiLanguage")]
     public class MainWindowSmokeTests
     {
         private sealed class BindingErrors : TraceListener
@@ -44,6 +48,7 @@ namespace DhcpServer.Tests.ViewModels
 
                     var app = new DhcpServer.App.App();
                     app.InitializeComponent();
+                    app.ShutdownMode = ShutdownMode.OnExplicitShutdown; // closing the first test window must not end the app
 
                     using (var f = new ViewModelFixture())
                     {
@@ -66,6 +71,33 @@ namespace DhcpServer.Tests.ViewModels
                         Assert.Single(combo.Items);
                         Assert.False(combo.IsEnabled); // locked while running
                         window.Close();
+                    }
+
+                    // The address group, the recovery banner and the confirmation window.
+                    using (var f = new AddressVmFixture(AddressVmFixture.LinkLocalAutomatic(), c =>
+                    {
+                        Assert.True(c.Configurator.Apply(c.Chosen, AddressingTestData.Settings()).Succeeded);
+                        c.Service.FailOn(ApplyStep.SetAddressDhcp);
+                    }))
+                    {
+                        var window = new MainWindow { DataContext = f.Vm, ShowInTaskbar = false, WindowStartupLocation = WindowStartupLocation.Manual, Left = -10000, Top = -10000 };
+                        window.Show();
+                        window.UpdateLayout();
+
+                        var buttons = FindChildren<Button>(window).ToList();
+                        Assert.Contains(buttons, b => Equals(b.Content, LanguageService.Get("Recovery_Retry")) && b.IsVisible);
+                        Assert.Contains(buttons, b => Equals(b.Content, LanguageService.Get("Recovery_Discard")) && b.IsVisible);
+                        Assert.Equal(5, FindChildren<TextBox>(window).Count());
+                        Assert.Single(FindChildren<CheckBox>(window));
+                        window.Close();
+
+                        var confirm = new ConfirmChangesWindow(new ConfirmChangesViewModel(
+                            ChangePreview.Create(AddressingTestData.Dhcp(), AddressingTestData.Settings()), "Ethernet 5"))
+                        { ShowInTaskbar = false, WindowStartupLocation = WindowStartupLocation.Manual, Left = -10000, Top = -10000 };
+                        confirm.Show();
+                        confirm.UpdateLayout();
+                        Assert.Equal(5, FindChildren<ListViewItem>(confirm).Count());
+                        confirm.Close();
                     }
                 }
                 catch (Exception e)

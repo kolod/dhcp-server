@@ -162,4 +162,172 @@ Un servidor DHCP portátil que asigna direcciones IP a dispositivos IoT conectad
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>Copiar dirección MAC</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>Establecer una dirección fija para esta sesión</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>Dirección</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>Máscara</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>Puerta de enlace</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>Servidores DNS</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(opcional)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>necesita una dirección</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>Introduzca un valor.</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>No es una dirección IPv4 válida.</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>Use una dirección de host normal (no 0.x.x.x, 127.x.x.x, multidifusión ni difusión).</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>No se pueden usar direcciones automáticas 169.254.x.x.</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>No es una máscara de subred válida.</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>La máscara debe estar entre 255.0.0.0 (/8) y 255.255.255.252 (/30).</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>Es la dirección de red o de difusión de la subred; elija una dirección de host.</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>La puerta de enlace debe ser otra dirección de host dentro de la misma subred.</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>Los dos servidores DNS son iguales.</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>Esta subred se solapa con otra conexión de red activa.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Confirmar los cambios de dirección</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>El programa cambiará la configuración de red de {0} durante esta sesión:</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>Ajuste</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>Ahora</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>Después</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>Aplicar e iniciar</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>La configuración anterior se restaura al detener el servidor o cerrar el programa.</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>Modo</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>automático (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>fija</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>ninguno</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>Se estableció la dirección para esta sesión.</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>Restaurando la configuración de red anterior…</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>La configuración de red de {0} no se restauró tras la sesión anterior. Debería ser: {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>Reintentar la restauración</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>Descartar</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>¿Descartar la configuración guardada? Este programa ya no restaurará la configuración de red anterior.</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>No se puede leer la configuración de red guardada, por lo que no se puede restaurar. Puede descartarla.</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>Se restauró la configuración de red anterior.</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>La configuración de red fue cambiada por otra persona durante la sesión, así que se dejó como está.</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>El adaptador no está disponible, por lo que no se pudo restaurar su configuración. Se restaurará la próxima vez que el programa se inicie con el adaptador presente.</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>Error al cambiar la configuración de red en el paso: {0}. Se restauró la configuración anterior.</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>Error al restaurar la configuración de red en el paso: {0}. Debería ser: {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>Otra instancia del programa está cambiando la configuración de red, o aún hay que restaurar una sesión anterior.</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>El programa no puede guardar junto a sí mismo la información necesaria para restaurar la configuración anterior, por lo que no se cambió nada. Ejecútelo desde una carpeta con permiso de escritura.</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>La nueva dirección no estuvo lista a tiempo. Se restauró la configuración anterior.</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>lectura de la configuración actual</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>guardado de la configuración anterior</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>establecimiento de la dirección</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>adición de una dirección</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>establecimiento de los servidores DNS</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>borrado de los servidores DNS</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>cambio a dirección automática</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>cambio a DNS automático</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>comprobación del resultado</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>espera a que la dirección esté lista</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>eliminación de la configuración guardada</value>
+  </data>
 </root>

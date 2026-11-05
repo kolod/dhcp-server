@@ -162,4 +162,172 @@ A portable DHCP server for giving IoT devices IP addresses over a direct connect
   <data name="Menu_CopyMac" xml:space="preserve">
     <value>Copy MAC address</value>
   </data>
+  <data name="Address_UseFixed" xml:space="preserve">
+    <value>Set a fixed address for this session</value>
+  </data>
+  <data name="Address_Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="Address_Mask" xml:space="preserve">
+    <value>Mask</value>
+  </data>
+  <data name="Address_Gateway" xml:space="preserve">
+    <value>Gateway</value>
+  </data>
+  <data name="Address_Dns" xml:space="preserve">
+    <value>DNS servers</value>
+  </data>
+  <data name="Address_Dns1" xml:space="preserve">
+    <value>DNS 1</value>
+  </data>
+  <data name="Address_Dns2" xml:space="preserve">
+    <value>DNS 2</value>
+  </data>
+  <data name="Address_Optional" xml:space="preserve">
+    <value>(optional)</value>
+  </data>
+  <data name="Interface_NeedsAddress" xml:space="preserve">
+    <value>needs an address</value>
+  </data>
+  <data name="Field_Required" xml:space="preserve">
+    <value>Enter a value.</value>
+  </data>
+  <data name="Field_Malformed" xml:space="preserve">
+    <value>This is not a valid IPv4 address.</value>
+  </data>
+  <data name="Field_NotUnicast" xml:space="preserve">
+    <value>Use a normal host address (not 0.x.x.x, 127.x.x.x, multicast or broadcast).</value>
+  </data>
+  <data name="Field_LinkLocal" xml:space="preserve">
+    <value>Automatic 169.254.x.x addresses cannot be used.</value>
+  </data>
+  <data name="Field_MaskInvalid" xml:space="preserve">
+    <value>This is not a valid subnet mask.</value>
+  </data>
+  <data name="Field_MaskSize" xml:space="preserve">
+    <value>The mask must be between 255.0.0.0 (/8) and 255.255.255.252 (/30).</value>
+  </data>
+  <data name="Field_NetworkOrBroadcast" xml:space="preserve">
+    <value>This is the network or broadcast address of the subnet; choose a host address.</value>
+  </data>
+  <data name="Field_GatewayOutsideSubnet" xml:space="preserve">
+    <value>The gateway must be a different host address inside the same subnet.</value>
+  </data>
+  <data name="Field_DnsDuplicate" xml:space="preserve">
+    <value>The two DNS servers are the same.</value>
+  </data>
+  <data name="Field_SubnetOverlap" xml:space="preserve">
+    <value>This subnet overlaps another active network connection.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Confirm address changes</value>
+  </data>
+  <data name="Confirm_Intro" xml:space="preserve">
+    <value>The program will change the network settings of {0} for this session:</value>
+  </data>
+  <data name="Confirm_Setting" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Confirm_Current" xml:space="preserve">
+    <value>Now</value>
+  </data>
+  <data name="Confirm_New" xml:space="preserve">
+    <value>After</value>
+  </data>
+  <data name="Confirm_Apply" xml:space="preserve">
+    <value>Apply and start</value>
+  </data>
+  <data name="Confirm_RestoreNote" xml:space="preserve">
+    <value>The previous settings are restored when you stop the server or close the program.</value>
+  </data>
+  <data name="Confirm_Mode" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="Confirm_Automatic" xml:space="preserve">
+    <value>automatic (DHCP)</value>
+  </data>
+  <data name="Confirm_Static" xml:space="preserve">
+    <value>fixed</value>
+  </data>
+  <data name="Confirm_None" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="Notice_SettingsApplied" xml:space="preserve">
+    <value>The address was set for this session.</value>
+  </data>
+  <data name="Status_Restoring" xml:space="preserve">
+    <value>Restoring the previous network settings…</value>
+  </data>
+  <data name="Recovery_Pending" xml:space="preserve">
+    <value>The network settings of {0} were not restored after the previous session. They should be: {1}</value>
+  </data>
+  <data name="Recovery_Retry" xml:space="preserve">
+    <value>Retry restoring</value>
+  </data>
+  <data name="Recovery_Discard" xml:space="preserve">
+    <value>Discard</value>
+  </data>
+  <data name="Recovery_DiscardConfirm" xml:space="preserve">
+    <value>Discard the saved settings? This program will no longer restore the previous network settings.</value>
+  </data>
+  <data name="Recovery_Corrupt" xml:space="preserve">
+    <value>The saved network settings cannot be read, so they cannot be restored. You can discard them.</value>
+  </data>
+  <data name="Notice_SettingsRestored" xml:space="preserve">
+    <value>The previous network settings were restored.</value>
+  </data>
+  <data name="Notice_SettingsLeftUnchanged" xml:space="preserve">
+    <value>The network settings were changed by someone else during the session, so they were left as they are.</value>
+  </data>
+  <data name="Notice_AdapterMissing" xml:space="preserve">
+    <value>The adapter is not available, so its settings could not be restored. They will be restored the next time the program starts with the adapter present.</value>
+  </data>
+  <data name="Reason_AddressApplyFailed" xml:space="preserve">
+    <value>Changing the network settings failed at step: {0}. The previous settings were put back.</value>
+  </data>
+  <data name="Reason_AddressRestoreFailed" xml:space="preserve">
+    <value>Restoring the network settings failed at step: {0}. They should be: {1}</value>
+  </data>
+  <data name="Reason_SettingsLocked" xml:space="preserve">
+    <value>Another instance of the program is changing the network settings, or an earlier session still has to be restored.</value>
+  </data>
+  <data name="Reason_RecordNotWritable" xml:space="preserve">
+    <value>The program cannot save the information needed to restore the old settings next to itself, so nothing was changed. Run it from a writable folder.</value>
+  </data>
+  <data name="Reason_AddressNotReady" xml:space="preserve">
+    <value>The new address did not become usable in time. The previous settings were put back.</value>
+  </data>
+  <data name="Step_Capture" xml:space="preserve">
+    <value>reading the current settings</value>
+  </data>
+  <data name="Step_WriteRecord" xml:space="preserve">
+    <value>saving the old settings</value>
+  </data>
+  <data name="Step_SetAddress" xml:space="preserve">
+    <value>setting the address</value>
+  </data>
+  <data name="Step_AddAddress" xml:space="preserve">
+    <value>adding an address</value>
+  </data>
+  <data name="Step_SetDns" xml:space="preserve">
+    <value>setting the DNS servers</value>
+  </data>
+  <data name="Step_ClearDns" xml:space="preserve">
+    <value>clearing the DNS servers</value>
+  </data>
+  <data name="Step_SetAddressDhcp" xml:space="preserve">
+    <value>switching to an automatic address</value>
+  </data>
+  <data name="Step_SetDnsDhcp" xml:space="preserve">
+    <value>switching to automatic DNS</value>
+  </data>
+  <data name="Step_Verify" xml:space="preserve">
+    <value>checking the result</value>
+  </data>
+  <data name="Step_WaitForAddress" xml:space="preserve">
+    <value>waiting for the address to become usable</value>
+  </data>
+  <data name="Step_DeleteRecord" xml:space="preserve">
+    <value>deleting the saved settings</value>
+  </data>
 </root>

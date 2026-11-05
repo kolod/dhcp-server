@@ -8,6 +8,7 @@ using System.Windows.Input;
 using DhcpServer.App.Localization;
 using DhcpServer.App.Settings;
 using DhcpServer.Core.Abstractions;
+using DhcpServer.Core.Addressing;
 using DhcpServer.Core.Network;
 using DhcpServer.Core.Runtime;
 
@@ -23,12 +24,18 @@ namespace DhcpServer.App.ViewModels
         private readonly IClock _clock;
         private readonly SynchronizationContext _ui;
         private readonly Action<string> _setClipboard;
+        private readonly IAdapterConfigService _adapters;
+        private readonly IUserDialogs _dialogs;
+        private readonly RecoveryService _recovery;
 
         private InterfaceItemViewModel _selectedInterface;
         private LeaseItemViewModel _selectedLease;
         private bool _poolExhausted;
         private bool _storeFailed;
         private bool _firewallHint;
+        private bool _settingsApplied;
+        private RestoreOutcome? _restoreNotice;
+        private FailureReason _localFailure;
         private DateTime _runningSince;
 
         internal MainViewModel(
@@ -37,7 +44,10 @@ namespace DhcpServer.App.ViewModels
             IInterfaceProvider interfaces,
             IClock clock,
             SynchronizationContext ui,
-            Action<string> setClipboard)
+            Action<string> setClipboard,
+            IAdapterConfigService adapters = null,
+            IUserDialogs dialogs = null,
+            RecoveryService recovery = null)
         {
             _settings = settings;
             _session = session;
@@ -45,7 +55,12 @@ namespace DhcpServer.App.ViewModels
             _clock = clock;
             _ui = ui;
             _setClipboard = setClipboard;
+            _adapters = adapters;
+            _dialogs = dialogs;
+            _recovery = recovery;
             _storeFailed = session.StoreFailedOnLoad;
+
+            Address = new AddressSettingsViewModel(() => _interfaces.GetInterfaces());
 
             Languages = LanguageService.Supported
                 .Select(code => new LanguageItem(code, LanguageService.NativeName(code)))
@@ -54,6 +69,10 @@ namespace DhcpServer.App.ViewModels
             SelectLanguageCommand = new RelayCommand(p => SelectLanguage(p as string));
             StartStopCommand = new RelayCommand(p => StartStop(), p => CanStartStop);
             CopyRowCommand = new RelayCommand(p => SelectedLease?.CopyRowCommand.Execute(null), p => SelectedLease != null);
+            RetryRecoveryCommand = new RelayCommand(p => RetryRecovery(), p => RecoveryVisible && !RecoveryCorrupt);
+            DiscardRecoveryCommand = new RelayCommand(p => DiscardRecovery(), p => RecoveryVisible);
+
+            RunRecovery();
 
             RefreshInterfaces();
             var last = _settings.LastInterface;
@@ -63,6 +82,7 @@ namespace DhcpServer.App.ViewModels
                 if (remembered != null)
                 {
                     _selectedInterface = remembered;
+                    Address.SetAdapter(remembered);
                 }
             }
 
@@ -71,6 +91,7 @@ namespace DhcpServer.App.ViewModels
             _session.StateChanged += OnSessionStateChanged;
             _session.PoolExhausted += OnPoolExhausted;
             _session.StoreFailed += OnStoreFailed;
+            _session.RestoreCompleted += OnRestoreCompleted;
             _session.Leases.Changed += OnLeasesChanged;
             _interfaces.Changed += OnInterfacesChanged;
             LanguageService.LanguageChanged += OnLanguageChanged;
@@ -83,6 +104,12 @@ namespace DhcpServer.App.ViewModels
         public ICommand StartStopCommand { get; }
 
         public ICommand CopyRowCommand { get; }
+
+        public ICommand RetryRecoveryCommand { get; }
+
+        public ICommand DiscardRecoveryCommand { get; }
+
+        public AddressSettingsViewModel Address { get; }
 
         public ObservableCollection<InterfaceItemViewModel> Interfaces { get; } = new ObservableCollection<InterfaceItemViewModel>();
 
@@ -100,6 +127,7 @@ namespace DhcpServer.App.ViewModels
 
                 if (SetProperty(ref _selectedInterface, value))
                 {
+                    Address.SetAdapter(value);
                     RaiseStatus();
                 }
             }
@@ -115,11 +143,27 @@ namespace DhcpServer.App.ViewModels
 
         public ServerState State => _session.State;
 
-        /// <summary>The interface cannot be changed while the server runs or starts.</summary>
+        /// <summary>The interface and its address settings cannot be changed while the server runs, starts or restores.</summary>
         public bool CanChangeInterface => State == ServerState.Stopped || State == ServerState.Failed;
 
-        public bool CanStartStop => State == ServerState.Starting || State == ServerState.Running
-            || (SelectedInterface != null && SelectedInterface.IsSelectable);
+        public bool CanStartStop
+        {
+            get
+            {
+                if (State == ServerState.Starting || State == ServerState.Running)
+                {
+                    return true;
+                }
+
+                if (State == ServerState.Stopping || (_recovery != null && !_recovery.CanStartSession))
+                {
+                    return false;
+                }
+
+                var chosen = SelectedInterface;
+                return chosen != null && chosen.IsSelectable && chosen.Info.IsUp && Address.IsReadyToStart;
+            }
+        }
 
         public string StartStopText
         {
@@ -130,6 +174,7 @@ namespace DhcpServer.App.ViewModels
                     case ServerState.Starting:
                         return LanguageService.Get("Button_Cancel");
                     case ServerState.Running:
+                    case ServerState.Stopping:
                         return LanguageService.Get("Button_Stop");
                     default:
                         return LanguageService.Get("Button_Start");
@@ -146,6 +191,7 @@ namespace DhcpServer.App.ViewModels
                     case ServerState.Running:
                         return "●";
                     case ServerState.Starting:
+                    case ServerState.Stopping:
                         return "◔";
                     case ServerState.Failed:
                         return "✖";
@@ -163,6 +209,8 @@ namespace DhcpServer.App.ViewModels
                 {
                     case ServerState.Starting:
                         return LanguageService.Get("Status_Starting");
+                    case ServerState.Stopping:
+                        return LanguageService.Get("Status_Restoring");
                     case ServerState.Running:
                         var address = _session.Chosen?.Address;
                         return LanguageService.Format("Status_Running", address == null ? string.Empty : address.ToString());
@@ -179,27 +227,53 @@ namespace DhcpServer.App.ViewModels
         {
             get
             {
-                var failure = _session.Failure;
+                var failure = _session.Failure ?? _localFailure;
                 if (failure != null)
                 {
-                    return LanguageService.Format(failure.ResourceKey, failure.Argument ?? string.Empty);
+                    return FailureText.Format(failure);
                 }
 
-                if (State == ServerState.Stopped && SelectedInterface == null)
+                if (State == ServerState.Stopped || State == ServerState.Failed)
                 {
-                    return LanguageService.Get("Hint_ChooseInterface");
+                    if (SelectedInterface == null)
+                    {
+                        return LanguageService.Get("Hint_ChooseInterface");
+                    }
+
+                    if (!SelectedInterface.Info.IsUp)
+                    {
+                        return LanguageService.Get("Reason_Down");
+                    }
                 }
 
                 return string.Empty;
             }
         }
 
-        /// <summary>Non-blocking notices: pool exhausted, lease file not writable, firewall hint.</summary>
+        /// <summary>Non-blocking notices: pool exhausted, lease file, firewall hint, settings applied/restored.</summary>
         public string NoticeText
         {
             get
             {
                 var lines = new List<string>();
+                if (_settingsApplied && State == ServerState.Running)
+                {
+                    lines.Add(LanguageService.Get("Notice_SettingsApplied"));
+                }
+
+                switch (_restoreNotice)
+                {
+                    case RestoreOutcome.Restored:
+                        lines.Add(LanguageService.Get("Notice_SettingsRestored"));
+                        break;
+                    case RestoreOutcome.LeftUnchanged:
+                        lines.Add(LanguageService.Get("Notice_SettingsLeftUnchanged"));
+                        break;
+                    case RestoreOutcome.AdapterMissing:
+                        lines.Add(LanguageService.Get("Notice_AdapterMissing"));
+                        break;
+                }
+
                 if (_poolExhausted)
                 {
                     lines.Add(LanguageService.Get("Notice_PoolExhausted"));
@@ -216,6 +290,48 @@ namespace DhcpServer.App.ViewModels
                 }
 
                 return string.Join(Environment.NewLine, lines);
+            }
+        }
+
+        /// <summary>A restore from an earlier crash is unfinished: the banner with Retry/Discard is shown.</summary>
+        public bool RecoveryVisible => _recovery != null && (_recovery.State == RecoveryState.Pending || _recovery.State == RecoveryState.Corrupt);
+
+        public bool RecoveryCorrupt => _recovery != null && _recovery.State == RecoveryState.Corrupt;
+
+        public string RecoveryText
+        {
+            get
+            {
+                if (!RecoveryVisible)
+                {
+                    return string.Empty;
+                }
+
+                if (RecoveryCorrupt)
+                {
+                    return LanguageService.Get("Recovery_Corrupt");
+                }
+
+                var record = _recovery.PendingRecord;
+                var text = record == null
+                    ? string.Empty
+                    : LanguageService.Format("Recovery_Pending", record.AdapterName, FailureText.Describe(record.Previous));
+                var last = _recovery.LastResult;
+                if (last != null && last.Outcome == RestoreOutcome.AdapterMissing)
+                {
+                    text += Environment.NewLine + LanguageService.Get("Notice_AdapterMissing");
+                }
+                else if (last != null && last.Outcome == RestoreOutcome.SettingsLocked)
+                {
+                    text += Environment.NewLine + LanguageService.Get("Reason_SettingsLocked");
+                }
+                else if (last != null && last.Outcome == RestoreOutcome.Failed && last.FailedStep.HasValue)
+                {
+                    text += Environment.NewLine + LanguageService.Format("Reason_AddressRestoreFailed", FailureText.Step(last.FailedStep.Value.ToString()),
+                        FailureText.Describe(record?.Previous));
+                }
+
+                return text;
             }
         }
 
@@ -248,6 +364,7 @@ namespace DhcpServer.App.ViewModels
             _session.StateChanged -= OnSessionStateChanged;
             _session.PoolExhausted -= OnPoolExhausted;
             _session.StoreFailed -= OnStoreFailed;
+            _session.RestoreCompleted -= OnRestoreCompleted;
             _session.Leases.Changed -= OnLeasesChanged;
             _interfaces.Changed -= OnInterfacesChanged;
             LanguageService.LanguageChanged -= OnLanguageChanged;
@@ -264,19 +381,96 @@ namespace DhcpServer.App.ViewModels
                     _session.Stop();
                     break;
                 default:
-                    var chosen = SelectedInterface;
-                    if (chosen == null || !chosen.IsSelectable)
-                    {
-                        return;
-                    }
-
-                    _settings.LastInterface = chosen.Id;
-                    _settings.TrySave();
-                    _poolExhausted = false;
-                    _firewallHint = false;
-                    _session.StartAsync(chosen.Info);
+                    Start();
                     break;
             }
+        }
+
+        private void Start()
+        {
+            var chosen = SelectedInterface;
+            if (chosen == null || !chosen.IsSelectable || !CanStartStop)
+            {
+                return;
+            }
+
+            AddressSettings settings;
+            if (!Address.TryGetSettings(out settings))
+            {
+                return;
+            }
+
+            if (settings != null)
+            {
+                // Nothing may change before the user has seen exactly what will change and agreed.
+                var current = _adapters?.Read(chosen.Id);
+                if (current == null || _dialogs == null)
+                {
+                    // Without a readable current configuration there is nothing to preview, so nothing may change.
+                    _localFailure = new FailureReason(FailureKind.AddressApplyFailed, ApplyStep.Capture.ToString());
+                    RaiseStatus();
+                    return;
+                }
+
+                if (!_dialogs.ConfirmChanges(ChangePreview.Create(current, settings), chosen.Info.Name))
+                {
+                    return;
+                }
+            }
+
+            _settings.LastInterface = chosen.Id;
+            _settings.TrySave();
+            _poolExhausted = false;
+            _firewallHint = false;
+            _restoreNotice = null;
+            _settingsApplied = settings != null;
+            _localFailure = null;
+            _session.StartAsync(chosen.Info, settings);
+        }
+
+        private void RunRecovery()
+        {
+            if (_recovery == null)
+            {
+                return;
+            }
+
+            _recovery.Run();
+            SetRestoreNotice(_recovery.LastResult);
+        }
+
+        private void RetryRecovery()
+        {
+            _recovery.Retry();
+            SetRestoreNotice(_recovery.LastResult);
+            RaiseRecovery();
+        }
+
+        private void DiscardRecovery()
+        {
+            if (_dialogs != null && !_dialogs.ConfirmDiscard())
+            {
+                return;
+            }
+
+            _recovery.Discard();
+            _restoreNotice = null;
+            RaiseRecovery();
+        }
+
+        private void SetRestoreNotice(RestoreResult result)
+        {
+            _restoreNotice = result != null && (result.Outcome == RestoreOutcome.Restored || result.Outcome == RestoreOutcome.LeftUnchanged)
+                ? (RestoreOutcome?)result.Outcome
+                : null;
+        }
+
+        private void RaiseRecovery()
+        {
+            OnPropertyChanged(nameof(RecoveryVisible));
+            OnPropertyChanged(nameof(RecoveryCorrupt));
+            OnPropertyChanged(nameof(RecoveryText));
+            RaiseStatus();
         }
 
         private void RefreshInterfaces()
@@ -308,12 +502,13 @@ namespace DhcpServer.App.ViewModels
                 }
             }
 
-            // A selected interface that became unusable cannot be started any more.
+            // A selected interface that became impossible to use (e.g. no longer Ethernet/Wi-Fi) cannot be started.
             if (_selectedInterface != null && !_selectedInterface.IsSelectable && CanChangeInterface)
             {
                 SelectedInterface = null;
             }
 
+            Address.Refresh();
             RaiseStatus();
         }
 
@@ -386,6 +581,20 @@ namespace DhcpServer.App.ViewModels
             });
         }
 
+        private void OnRestoreCompleted(object sender, RestoreResult result)
+        {
+            Post(() =>
+            {
+                SetRestoreNotice(result);
+                if (result != null && result.Outcome == RestoreOutcome.AdapterMissing)
+                {
+                    _restoreNotice = RestoreOutcome.AdapterMissing;
+                }
+
+                RaiseStatus();
+            });
+        }
+
         private void OnPoolExhausted(object sender, EventArgs e)
         {
             Post(() =>
@@ -428,6 +637,8 @@ namespace DhcpServer.App.ViewModels
                     lease.RefreshText();
                 }
 
+                Address.Refresh();
+                OnPropertyChanged(nameof(RecoveryText));
                 RaiseStatus();
             });
         }
